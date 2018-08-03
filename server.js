@@ -7,7 +7,7 @@ server.listen(port, function () {
   var host = constantes.getServerIpAddress();
   var port = server.address().port
   var intervalObj = setInterval(() => {
-    constantes.declareService(constantes.MSTypeEnum.afoEvents, host, port);
+    constantes.declareService(constantes.MSTypeEnum.afoEvents, host, port, constantes.MSPathnameEnum.afoEvents);
   }, 10000);
   console.log("EventsSrv listening at http://%s:%s", host, port)
 

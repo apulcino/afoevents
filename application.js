@@ -1,10 +1,11 @@
+const constantes = require('../library/constantes');
 const express = require('express');
 const application = express();
 
 const apiEventsRoutes = require('./APIEvents');
-application.use('/api/events', apiEventsRoutes);
+application.use(constantes.MSPathnameEnum.afoEvents, apiEventsRoutes);
 
 const apiHealthRoutes = require('./APIHealth');
-application.use('/health', apiHealthRoutes);
+application.use(constantes.MSPathnameEnum.afoHealth, apiHealthRoutes);
 
 module.exports = application;
