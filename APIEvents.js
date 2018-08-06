@@ -10,7 +10,7 @@ const apiConnect = 'https://connect.afpforum.com:443/v0.9';
 // http://localhost:3001/api/events?lang=fr
 //------------------------------------------------------------------------------
 router.get('/', (req, res) => {
-    getApiEvents().then(resp => {        
+    getApiEvents().then(resp => {
         res.send(filterEventsByStatus(resp, req.query.lang));
     }).catch(err => {
         console.log('Error 2 :', err);
@@ -53,6 +53,7 @@ router.get('/events-by-sequence/:eventId', (req, res) => {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 function filterEventsByStatus(_arrEvents, lang) {
+    let arrEvents = [];
     if (false === Array.isArray(_arrEvents)) {
         arrEvents = [];
         arrEvents.push(_arrEvents);
@@ -73,8 +74,7 @@ function filterEventsByStatus(_arrEvents, lang) {
 }
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
-function isEventImportant (myEvent)
-{
+function isEventImportant(myEvent) {
     try {
         if (myEvent.topNews.GENERAL == 30)
             return true;
@@ -86,13 +86,11 @@ function isEventImportant (myEvent)
 }
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
-function GetEventTitle(myEvent, lang)
-{
+function GetEventTitle(myEvent, lang) {
     lang = lang || '';
     lang = (lang.Length > 2) ? lang.Substring(0, 2) : lang;
     let res = myEvent.title.en;
-    switch (lang.toLowerCase())
-    {
+    switch (lang.toLowerCase()) {
         case "ar":
             res = myEvent.title.ar;
             break;
@@ -137,12 +135,12 @@ function getApiEvents() {
     const iris360 = 'http://iris-360.afp.com/api/events?max=100&relativeDate=today&relativeDuration=day&start=0&timeEnd=0&timeStart=0';
     console.log('GET : ', iris360);
     return new Promise(function (resolve, reject) {
-        fetch( iris360 , {
+        fetch(iris360, {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
         }).then(response => {
             return response.json();
-        }).then(function(json){
+        }).then(function (json) {
             resolve(json);
         }).catch(err => {
             console.log('getApiEvents : Error : ', err);
@@ -157,12 +155,12 @@ function getApiEventBySequenceId(EventId) {
     const iris360 = 'http://iris-360.afp.com/api/events-by-sequence/'
     console.log('GET : ', iris360);
     return new Promise(function (resolve, reject) {
-        fetch( iris360 + EventId , {
+        fetch(iris360 + EventId, {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
         }).then(response => {
             return response.json();
-        }).then(function(json){
+        }).then(function (json) {
             resolve(json);
         }).catch(err => {
             console.log('getApiEvents : Error : ', err);
