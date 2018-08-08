@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+"use strict"
 const express = require('express');
 const router = express.Router();
 
