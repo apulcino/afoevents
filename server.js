@@ -1,3 +1,4 @@
+"use strict"
 const http = require('http');
 const application = require('./application');
 const constantes = require('../library/constantes');
@@ -12,7 +13,7 @@ server.listen(port, function () {
   var intervalObj = setInterval(() => {
     let AFORegisteryUrl = regMgr.getList();
     if (0 !== AFORegisteryUrl.length) {
-      constantes.declareService(AFORegisteryUrl, constantes.MSTypeEnum.afoEvents, host, port, constantes.MSPathnameEnum.afoEvents);
+      constantes.declareService('AFOEvents', AFORegisteryUrl, constantes.MSTypeEnum.afoEvents, host, port, constantes.MSPathnameEnum.afoEvents);
     }
   }, 10000);
   console.log("EventsSrv listening at http://%s:%s", host, port)
@@ -21,7 +22,7 @@ server.listen(port, function () {
 
 const regMgr = new regsitryMgr();
 const mcRecver = new multicastRecver(constantes.getServerIpAddress(), constantes.MCastAppPort, constantes.MCastAppAddr, (address, port, message) => {
-  console.log('AFOEvents : MCast Msg: From: ' + address + ':' + port + ' - ' + JSON.stringify(message));
+  console.log('AFOEvents : Recv Msg From : ' + address + ':' + port + ' - ' + JSON.stringify(message));
   if (message.type === constantes.MSMessageTypeEnum.regAnnonce) {
     regMgr.add(message.host, message.port);
   }
