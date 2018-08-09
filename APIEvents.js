@@ -54,14 +54,16 @@ router.get('/events-by-sequence/:eventId', (req, res) => {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 function filterEventsByStatus(_arrEvents, lang) {
+    _arrEvents = _arrEvents || [];
+
     let arrEvents = [];
     if (false === Array.isArray(_arrEvents)) {
         arrEvents = [];
         arrEvents.push(_arrEvents);
+        _arrEvents = arrEvents;
     }
-    arrEvents = arrEvents || [];
     let res = [];
-    arrEvents.forEach((evt, index) => {
+    _arrEvents.forEach((evt, index) => {
         if (evt.status === "USABLE" && evt.privacy === "PUBLIC") {
             let v = {
                 sequenceId: evt.sequenceId,
