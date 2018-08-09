@@ -1,5 +1,6 @@
-const fetch = require('node-fetch');
 "use strict"
+const traceMgr = new (require('../library/tracemgr'))('APIEvents');
+const fetch = require('node-fetch');
 const express = require('express');
 const router = express.Router();
 
@@ -11,6 +12,8 @@ const apiConnect = 'https://connect.afpforum.com:443/v0.9';
 // http://localhost:3001/api/events?lang=fr
 //------------------------------------------------------------------------------
 router.get('/', (req, res) => {
+    var TRANSID = req.get('XAFP-TRANSID');
+    traceMgr.log(TRANSID + ' : Return events list')
     getApiEvents().then(resp => {
         res.send(filterEventsByStatus(resp, req.query.lang));
     }).catch(err => {
