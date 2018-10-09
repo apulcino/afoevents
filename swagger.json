@@ -2,19 +2,19 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "AFP User API",
-    "description": "User component API description",
+    "title": "AFP Events API",
+    "description": "Events component API description",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     }
   },
   "host": "localhost:3000",
-  "basePath": "/api/v1/user",
+  "basePath": "/api/v1/events",
   "tags": [
     {
-      "name": "User",
-      "description": "API for user functionalities"
+      "name": "Events",
+      "description": "API for events"
     }
   ],
   "schemes": [
@@ -30,7 +30,7 @@
     "/": {
       "get": {
         "tags": [
-          "User"
+          "Events"
         ],
         "summary": "Get user detail",
         "parameters": [
